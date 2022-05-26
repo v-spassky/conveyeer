@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <main class="w-fit h-64 bg-slate-200 flex p-10 space-x-10 rounded-2xl bg-opacity-40"
+          hx-get="{{url_for('is_the_task_ready', task_id=session['task_id'])}}" hx-trigger="every 1s" hx-swap="none">
+
+        <img src="{{ url_for('static', filename='dancing.gif') }}" alt="Loading..." class="">
+
+        <div class="w-fit flex flex-col justify-center items-start rounded-2xl text-5xl font-bold">
+
+            <p>
+                Work in progress...
+            </p>
+
+            <p class="text-lg font-normal">
+                Please do not leave.
+            </p>
+
+        </div>
+
+    </main>
+
+{% endblock %}

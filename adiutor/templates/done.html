@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <main class="w-fit h-64 bg-slate-200 flex p-10 space-x-10 rounded-2xl bg-opacity-40">
+
+        <img src="{{ url_for('static', filename='clapping_hands.png') }}" alt="Done!" class="bg-transparent">
+
+        <div class="w-fit flex flex-col justify-center items-start rounded-2xl text-5xl font-bold space-y-1">
+
+            <p>
+                Done!
+            </p>
+
+            <p class="text-lg font-normal">
+                Here is your file.
+            </p>
+
+            {% set marking_file_name = 'marking_'~ session['task_id']~'.pdf' %}
+
+            <a href="{{ url_for('download', filename=marking_file_name) }}" 
+               target="_blank"
+               class="flex justify-center items-center
+                      bg-sky-400 p-2 rounded-full text-lg font-normal w-full">
+                Download
+            </a>
+
+        </div>
+
+    </main>
+
+{% endblock %}

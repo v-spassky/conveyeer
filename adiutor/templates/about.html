@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<main class="w-7/12 h-fit bg-slate-200 p-10 rounded-2xl bg-opacity-40 space-y-3">
+
+<h1 class="text-3xl">What is this site about?</h1>
+
+<p>This site presrnts a tool for automatically generating marking for electrical equipment. Electrical products should have all of its components marked with stickers. The tool automates generation of marking. You only have to provide it with enumeration of electrical components` designation.</p>
+
+<h1 class="text-3xl">How to use it?</h1>
+
+<p>Go to <a href="{{ url_for('home') }}" class="text-sky-700 underline bg-zinc-300 px-2 py-1 rounded-lg hover:bg-zinc-400 hover:text-sky-600">dashboard</a> and drop the input in. The input may be a .txt, .csv, .json, .yaml or .pdf file.</p>
+
+<p>Here are sample inputs that demonstrate input structure:</p>
+
+<ul class="space-x-2">
+
+<span>
+    <a href="{{ url_for('static', filename='input_examples/sample_input.txt') }}" 
+       class="text-sky-700 underline bg-zinc-300 px-2 py-1 rounded-lg hover:bg-zinc-400 hover:text-sky-600">
+       .txt example
+    </a>
+</span>
+
+<span>
+    <a href="{{ url_for('static', filename='input_examples/sample_input.csv') }}" 
+       class="text-sky-700 underline bg-zinc-300 px-2 py-1 rounded-lg hover:bg-zinc-400 hover:text-sky-600">
+       .csv example
+    </a>
+</span>
+
+<span>
+    <a href="{{ url_for('static', filename='input_examples/sample_input.json') }}" 
+       class="text-sky-700 underline bg-zinc-300 px-2 py-1 rounded-lg hover:bg-zinc-400 hover:text-sky-600">
+       .json example
+    </a>
+</span>
+
+<span>
+    <a href="{{ url_for('static', filename='input_examples/sample_input.yaml') }}" 
+       class="text-sky-700 underline bg-zinc-300 px-2 py-1 rounded-lg hover:bg-zinc-400 hover:text-sky-600">
+       .yaml example
+    </a>
+</span>
+
+</ul>
+
+<p>Tool also accepts .pdf as an input, but it must be structured in a <a href="https://library.ontu.edu.ua/assets/pdf/DSTY-GOST/2.701-2008.pdf" class="text-sky-700 underline bg-zinc-300 px-2 py-1 rounded-lg hover:bg-zinc-400 hover:text-sky-600" target="_blank">standartized</a> way.</p>
+
+</main>
+
+{% endblock %}

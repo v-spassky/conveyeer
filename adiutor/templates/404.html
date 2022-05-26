@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <img src="{{ url_for('static', filename='404.gif') }}" 
+         alt="Not found." 
+         class="rounded-2xl">
+
+{% endblock %}

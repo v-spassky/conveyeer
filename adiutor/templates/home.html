@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+    {{ super() }}
+    {{ dropzone.load_css() }}
+    {{ dropzone.style(
+        'width: 25em; display: flex; justify-content: center; align-items: center;
+        background-color: rgba(117, 190, 218, 0.0); border-radius: 25px;
+        border-radius: 20px; border-color: rgba(117, 190, 218, 0.0); color: rgb(30 41 59);'
+        )
+    }}
+
+{% endblock %}
+
+{% block content %}
+
+    <main class="w-fit h-64 bg-slate-200 flex p-10 space-x-10 rounded-2xl bg-opacity-40">
+
+        <img src="{{url_for('static', filename='pointing_fist.webp')}}" alt="Here!" class="">
+
+        {{ dropzone.create(action='/upload_file') }}
+
+    </main>
+
+    {{ dropzone.load_js() }}
+    {{ dropzone.config() }}
+    {{ dropzone.config(redirect_url=url_for('work_in_progress')) }}
+
+{% endblock %}

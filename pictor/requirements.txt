@@ -1,0 +1,4 @@
+-e git+git@github.com:v-spassky/softserve-itacademy-tasks.git@cdd667a52a1230a6152075a400abdaed01035e56#egg=pictor&subdirectory=Python/Python-final_project/pictor
+Pillow==9.1.0
+PyX==0.15    
+PyYAML==6.0
