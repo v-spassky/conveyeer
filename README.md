@@ -19,6 +19,7 @@ This package serves the purpose of automatically generating PDF document with ma
 
 - [Python](https://www.python.org/) 3.8.10;
 - [Flask](https://flask.palletsprojects.com/en/2.1.x/) 2.1;
+- [Gunicorn](https://gunicorn.org/) 20.1.0;
 - [Celery](https://docs.celeryq.dev/en/stable/) 5.2.6
 - [Redis](https://redis.io/) 7.0.0;
 - [Tailwindcss](https://tailwindcss.com/) 3.0.24;
