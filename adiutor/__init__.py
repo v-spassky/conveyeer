@@ -13,10 +13,12 @@ dotenv.load_dotenv()
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
-app.config['UPLOAD_FOLDER'] = f"{os.getcwd()}/adiutor/static/uploads"
+app.config['UPLOAD_FOLDER'] = f"{os.getcwd()}/tmp"
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.config["CELERY_BROKER_URL"] = os.getenv("REDIS_URL")
 app.config["CELERY_RESULT_BACKEND"] = os.getenv("REDIS_URL")
+app.config['DROPZONE_ALLOWED_FILE_CUSTOM'] = True
+app.config['DROPZONE_ALLOWED_FILE_TYPE'] = '.pdf, .txt, .csv, .json, .yaml'
 app.config["DROPZONE_DEFAULT_MESSAGE"] = """
 
 Drop your file in here. It may be a set of electrical items 

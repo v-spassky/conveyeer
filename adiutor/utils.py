@@ -34,17 +34,19 @@ def process_incoming_file(path_to_file):
     task_id = celery.current_task.request.id
 
     if _is_pdf(path_to_file):
-        list_of_electrical_items = lector.get_electrical_items_denotations(
-            path_to_file=path_to_file,
-            sought_denotations=library.gost2710_denotations_with_added(
-                {'XT_'}
-            ),
+        list_of_electrical_items = sorted(
+            lector.get_electrical_items_denotations(
+                path_to_file=path_to_file,
+                sought_denotations=library.gost2710_denotations(),
+            )
         )
     else:
         list_of_electrical_items = convert.to_list(path_to_file)
 
+    logger.info(list_of_electrical_items)
+
     drawing_config = pictorConfig.DefaultConfig()
-    output_path = f'{os.getcwd()}/adiutor/static/uploads/marking_{task_id}'
+    output_path = f'{os.getcwd()}/tmp/marking_{task_id}'
 
     pictor.draw_marking(
         items=list_of_electrical_items,
@@ -53,7 +55,7 @@ def process_incoming_file(path_to_file):
         with_cutting_lines=True,
     )
 
-    # Added a bit of delay so that loading animation stays a little longer
+    # Added a bit of delay so that loading animation plays a little longer
     time.sleep(3)
 
 

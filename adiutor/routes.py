@@ -102,6 +102,9 @@ def upload_file():
     if file.filename == '':
         return redirect(request.url)
 
+    print('HERE 1')
+    print(format_is_valid(file.filename))
+
     if file and format_is_valid(file.filename):
         filename = secure_filename(file.filename)
         path_to_file = os.path.join(app.config['UPLOAD_FOLDER'], filename)
@@ -149,7 +152,7 @@ def download(filename):
     del session['task_id']
 
     return send_from_directory(
-        os.path.join(app.root_path, "static", "uploads"),
+        app.config['UPLOAD_FOLDER'],
         filename,
         as_attachment=True,
     )
