@@ -32,7 +32,7 @@ This package serves the purpose of automatically generating PDF document with ma
 - [PyPDF2](https://pypi.org/project/PyPDF2/) 1.28.2;
 - [slate3k](https://pypi.org/project/slate3k/) 0.5.3.
 
-...and with hosting on [Heroku](https://www.heroku.com).
+...and with hosting on [Heroku](https://www.heroku.com) and [AWS S3](https://aws.amazon.com/s3).
 
 The full list of dependencies is in requirements.txt.
 

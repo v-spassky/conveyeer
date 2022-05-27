@@ -1,5 +1,6 @@
 import os
 import dotenv
+import boto3
 from flask import Flask
 from adiutor.celery_init import make_celery
 from flask_dropzone import Dropzone
@@ -28,6 +29,13 @@ Alternatively, you can use initial .pdf file as an input.
 """
 
 celery = make_celery(app)
+
+aws_session = boto3.Session(
+    aws_access_key_id=os.getenv("AWS_ACCESS_KEY_ID"),
+    aws_secret_access_key=os.getenv("AWS_SECRET_ACCESS_KEY"),
+)
+s3 = aws_session.resource('s3')
+BUCKET_NAME = os.getenv("BUCKET_NAME")
 
 dropzone = Dropzone(app)
 

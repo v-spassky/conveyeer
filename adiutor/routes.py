@@ -10,6 +10,10 @@ from flask import (
     Response,
 )
 from werkzeug.utils import secure_filename
+from adiutor import (
+    s3,
+    BUCKET_NAME,
+)
 from .utils import (
     process_incoming_file,
     format_is_valid,
@@ -102,14 +106,15 @@ def upload_file():
     if file.filename == '':
         return redirect(request.url)
 
-    print('HERE 1')
-    print(format_is_valid(file.filename))
-
     if file and format_is_valid(file.filename):
         filename = secure_filename(file.filename)
-        path_to_file = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        file.save(path_to_file)
-        task = process_incoming_file.delay(path_to_file=path_to_file)
+#        path_to_file = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+#        file.save(path_to_file)
+
+        file_object = s3.Object(BUCKET_NAME, filename)
+        file_object.put(Body=file)
+
+        task = process_incoming_file.delay(path_to_file=filename)
         session['task_id'] = task.id
         # redirect path is set on the template:
         # {{ dropzone.config(redirect_url=url_for('work_in_progress')) }}
@@ -148,6 +153,11 @@ def download(filename):
     """
     Serves the generated marking file.
     """
+
+    s3.Bucket(BUCKET_NAME).download_file(
+        filename,
+        f'tmp/{filename}',
+    )
 
     del session['task_id']
 

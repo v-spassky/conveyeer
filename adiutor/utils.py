@@ -1,6 +1,6 @@
 import os
 import time
-from adiutor import celery
+from adiutor import celery, s3, BUCKET_NAME
 from celery.utils.log import get_task_logger
 from pictor import pictor, convert, pictorConfig
 from lector import lector, library
@@ -33,20 +33,29 @@ def process_incoming_file(path_to_file):
 
     task_id = celery.current_task.request.id
 
+    incoming_file_temp_location = f'{os.getcwd()}/tmp/{path_to_file}'
+
+    s3.Bucket(BUCKET_NAME).download_file(
+        path_to_file,
+        incoming_file_temp_location,
+    )
+
     if _is_pdf(path_to_file):
         list_of_electrical_items = sorted(
             lector.get_electrical_items_denotations(
-                path_to_file=path_to_file,
+                path_to_file=incoming_file_temp_location,
                 sought_denotations=library.gost2710_denotations(),
             )
         )
     else:
-        list_of_electrical_items = convert.to_list(path_to_file)
+        list_of_electrical_items = convert.to_list(
+            incoming_file_temp_location
+        )
 
     logger.info(list_of_electrical_items)
 
     drawing_config = pictorConfig.DefaultConfig()
-    output_path = f'{os.getcwd()}/tmp/marking_{task_id}'
+    output_path = f'{os.getcwd()}/tmp/marking_{task_id}.pdf'
 
     pictor.draw_marking(
         items=list_of_electrical_items,
@@ -54,6 +63,10 @@ def process_incoming_file(path_to_file):
         config=drawing_config,
         with_cutting_lines=True,
     )
+
+    with open(output_path, 'rb') as f:
+        marking_object = s3.Object(BUCKET_NAME, f'marking_{task_id}.pdf')
+        marking_object.put(Body=f)
 
     # Added a bit of delay so that loading animation plays a little longer
     time.sleep(3)
