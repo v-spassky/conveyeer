@@ -35,7 +35,8 @@ def process_incoming_file(path_to_file):
 
     incoming_file_temp_location = f'{os.getcwd()}/tmp/{path_to_file}'
 
-    s3.Bucket(BUCKET_NAME).download_file(
+    bucket = s3.Bucket(BUCKET_NAME)
+    bucket.download_file(
         path_to_file,
         incoming_file_temp_location,
     )
