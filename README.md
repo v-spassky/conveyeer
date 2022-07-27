@@ -69,7 +69,7 @@ XS1, XS2, XS3, XS4, XS5, XS6, XS7, XS8, XS9, XS10, XS11, XS12, XS13, XS14, XS15
 
 <img src="files_for_readme/demonstration_1.gif"
      alt="figure 3"
-     style="max-width: 100%;/>
+     style="max-width: 100%;"/>
 
 # Demonstration #2
 
