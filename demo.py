@@ -3,8 +3,6 @@ from lector import lector
 from lector import library
 from lector import croppingConfig
 
-print(os.getcwd())
-
 cropping_config = croppingConfig.DefaultA4CroppingConfig()
 cropping_config.LEFT_OFFSET_TO_DOCUMENT_WIDTH_RATIO = 0.08
 
@@ -13,6 +11,3 @@ items = lector.get_set_of_electrical_items_denotations(
     sought_denotations=library.gost2710_denotations_with_added({'XT_'}),
     cropping_config=cropping_config,
 )
-
-print(sorted(items))
-print(len(items))

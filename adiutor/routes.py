@@ -108,8 +108,6 @@ def upload_file():
 
     if file and format_is_valid(file.filename):
         filename = secure_filename(file.filename)
-#        path_to_file = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-#        file.save(path_to_file)
 
         file_object = s3.Object(BUCKET_NAME, filename)
         file_object.put(Body=file)
