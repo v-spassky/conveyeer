@@ -5,7 +5,7 @@ from pictor import pictor
 from lector import lector
 
 """
-Launches web server on a specified port.
+Launches Flask web server on a specified port.
 """
 
 if __name__ == '__main__':
