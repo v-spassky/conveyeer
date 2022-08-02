@@ -4,4 +4,4 @@
 
 redis-server &
 celery -A adiutor.celery worker --loglevel=INFO &
-gunicorn run:app
+gunicorn --bind 0.0.0.0:8000 run:app

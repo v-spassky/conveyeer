@@ -1,4 +1,4 @@
-# Idea
+### Idea
 
 Electrical equipment, according to industry standards, must have all of its internal components marked with special stickers that map components to their appearance in electrical documentation i. e. circuit diagram, list of electrical components.
 
@@ -6,16 +6,15 @@ This package serves the purpose of automatically generating PDF document with ma
 
 <img src="files_for_readme/marking_example_1.jpg"
      alt="figure 1"
-     width="600"
-     style="border-radius: 3%;"/>
+     width="600"/>
 
-# Notes
+### Notes
 
 - No registration/authentication required. Works like an online converter;
 - Under the hood uses custom utilities: [pictor](./pictor/README.md), [lector](./lector/README.md);
 - Input in .txt/.csv/.json/.yaml is prefered over .pdf because pdf parsing is dependent on document formatting, naming conventions etc. and therefore is error prone.
 
-# Tech stack & dependencies
+### Tech stack & dependencies
 
 - [Python](https://www.python.org/) 3.8.10;
 - [Flask](https://flask.palletsprojects.com/en/2.1.x/) 2.1;
@@ -32,20 +31,19 @@ This package serves the purpose of automatically generating PDF document with ma
 - [PyPDF2](https://pypi.org/project/PyPDF2/) 1.28.2;
 - [slate3k](https://pypi.org/project/slate3k/) 0.5.3.
 
-...and with hosting on [Heroku](https://www.heroku.com) and [AWS S3](https://aws.amazon.com/s3).
+...and with hosting on [AWS EC2](https://aws.amazon.com/ec2) and [AWS S3](https://aws.amazon.com/s3).
 
 The full list of dependencies is in requirements.txt.
 
-# Typical workflow
+### Typical workflow
 
 Client-server interaction in main usecase would like this from the perspective of HTTP request-response cycles.
 
 <img src="files_for_readme/typical_workflow.png"
      alt="figure 2"
-     width="800"
-     style="border-radius: 3%;"/>
+     width="800"/>
 
-# Demonstration #1
+### Demonstration #1
 
 Here, a .csv file with the following content was dropped into the input window:
 
@@ -71,24 +69,58 @@ XS1, XS2, XS3, XS4, XS5, XS6, XS7, XS8, XS9, XS10, XS11, XS12, XS13, XS14, XS15
      alt="figure 3"
      style="max-width: 100%;"/>
 
-# Demonstration #2
+### Demonstration #2
 
 In this example, the .pdf file shown below was fed into the input window. In this case only 'Designation' column matters becaues it contains items` denotations which are to be printed. In the example everything else is blank.
 
 <img src="files_for_readme/pdf_input_sample_1.png"
      alt="figure 4"
-     width="600"
-     style="border-radius: 3%;"/>
+     width="600"/>
 
 Recieved output:
 
 <img src="files_for_readme/sample_marking_output.JPG"
      alt="figure 5"
-     width="600"
-     style="border-radius: 3%;"/>
+     width="600"/>
 
-# What is not yet implemented, but should be
+### What is not yet implemented, but should be
 
 - Implement tweaking drawing and cropping settings. Used utilities allow for it, but currently web app has no way of accessing those settings;
 - PDF parser module probably needs more work - now parsing success is highly dependent on pdf`s author pedantry;
 - Describe web app deployment and launch in the readme.
+
+### Deployment notes
+
+SSH into the EC2 machine:
+
+`ssh -i "<key_file>" <public_dns_name>`
+
+Remove previous project version:
+
+`suro rm -r conveyeer/`
+
+Clone git repo:
+
+`git clone https://github.com/v-spassky/conveyeer.git`
+
+Cd into the rpoject folder:
+
+`cd conveyeer/`
+
+Create a .env file with all the private stuff:
+
+`touch .env`
+
+`nano .env `
+
+Remove previous builds:
+
+`sudo docker system prune -a`
+
+Build docker image:
+
+`sudo docker build -t conveyeer .`
+
+Run docker container:
+
+`sudo docker run -d -p 443:8000 -p 80:8000`

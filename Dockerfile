@@ -2,14 +2,14 @@ FROM python:3.8
 
 WORKDIR /conveyeer
 
-COPY * .
+COPY . /conveyeer
 
-RUN apt install redis-server
+RUN apt update -y && apt install -y redis-server
 
 RUN chmod u+x pictor/font_setup.sh && pictor/font_setup.sh
 
 RUN pip install -r requirements.txt
 
-RUN ./start_all_services.sh
+RUN chmod +x ./start_all_services.sh
 
-EXPOSE 8000
+ENTRYPOINT ["./start_all_services.sh"]
