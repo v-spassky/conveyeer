@@ -23,7 +23,7 @@ This package serves the purpose of automatically generating PDF document with ma
 - [Redis](https://redis.io/) 7.0.0;
 - [Tailwindcss](https://tailwindcss.com/) 3.0.24;
 - [HTMX](https://htmx.org/) 1.7.0;
-- [Hyperscript](https://hyperscript.org/) 0.9.5.
+- [Alpine.js](https://alpinejs.dev/) 3.10.3.
 
 ... along with PDF processing tools:
 

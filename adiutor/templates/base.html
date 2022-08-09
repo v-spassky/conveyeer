@@ -6,62 +6,59 @@
 
         {% block head %}
 
+            <title>conveyeer</title>
+
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
             <script src="https://unpkg.com/htmx.org@1.7.0"></script>
-            <script src="https://unpkg.com/hyperscript.org@0.9.5"></script>
+            <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
             <script src="https://kit.fontawesome.com/7bd84e7f53.js" crossorigin="anonymous"></script>
             <script src="https://cdn.tailwindcss.com"></script>
 
-            <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-
-            <title>conveyeer</title>
+            <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+            <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
 
         {% endblock %}
 
     </head>
 
     <body class="min-h-screen flex flex justify-center items-center static
-                 bg-gradient-to-tl from-blue-100 via-blue-300 to-blue-500">
+                 bg-gradient-to-tl from-blue-100 via-blue-300 to-blue-500"
+          x-data="globalState">
 
         <i class="fa-solid fa-circle-chevron-down fa-2x
-                  absolute top-4 left-4 cursor-pointer text-sky-900"
-           _="on click toggle the *display of the next <menu/> then hide me then toggle the *display of the next <i/>">
-        </i>
-
-        <i class="fa-solid fa-circle-chevron-up fa-2x
-                  absolute top-4 left-4 cursor-pointer text-sky-900"
-            _="on click toggle the *display of the next <menu/> then hide me then toggle the *display of the previous <i/>"
-            style="display: none">
+                  absolute top-4 left-4 cursor-pointer text-sky-900 transition-all"
+           x-on:click="toggleMenuVisibility"
+           x-bind:class=" menuIsVsisble ? '-rotate-180' : '' ">
         </i>
 
         <menu class="absolute top-14 left-4 z-10
                      w-fit h-fit bg-slate-200
                      rounded-xl p-3 space-y-2
                      shadow-2xl"
-              style="display: none">
+              x-show="menuIsVsisble" x-transition x-cloak>
 
             <a href="{{url_for('about')}}">
-                <li class="p-1 hover:bg-slate-300 rounded-md cursor-pointer">
+                <li class="p-1 hover:bg-slate-300 rounded-md cursor-pointer transition-all duration-200">
                     <i class="fa-solid fa-circle-info"></i> About
                 </li>
             </a>
 
             <a href="https://github.com/v-spassky/conveyeer" target="_blank">
-                <li class="p-1 hover:bg-slate-300 rounded-md cursor-pointer">
+                <li class="p-1 hover:bg-slate-300 rounded-md cursor-pointer transition-all duration-200">
                     <i class="fa-brands fa-github"></i> Source
                 </li>
             </a>
 
             <a href="{{url_for('author')}}">
-                <li class="p-1 hover:bg-slate-300 rounded-md cursor-pointer">
+                <li class="p-1 hover:bg-slate-300 rounded-md cursor-pointer transition-all duration-200">
                     <i class="fa-solid fa-hand-sparkles"></i> Author
                 </li>
             </a>
 
             <a href="{{url_for('home')}}">
-                <li class="p-1 hover:bg-slate-300 rounded-md cursor-pointer">
+                <li class="p-1 hover:bg-slate-300 rounded-md cursor-pointer transition-all duration-200">
                     <i class="fa-solid fa-square-caret-right"></i> Dashboard
                 </li>
             </a>
@@ -70,6 +67,28 @@
 
         {% block content %}
         {% endblock %}
+
+        <style>
+
+            [x-cloak] { display: none !important; }
+
+        </style>
+
+        <script>
+
+            let globalState = {
+
+                menuIsVsisble: false,
+
+                toggleMenuVisibility() {
+
+                    this.menuIsVsisble = !this.menuIsVsisble;
+
+                },
+
+            }
+
+        </script>
 
     </body>
 
