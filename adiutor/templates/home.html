@@ -19,7 +19,7 @@
 
         <img src="{{url_for('static', filename='pointing_fist.webp')}}" alt="Here!" class="">
 
-        <div class="rounded-xl hover:bg-slate-300 hover:bg-opacity-60 transition-all duration-200">
+        <div class="rounded-xl hover:blur-lg transition-all duration-200">
 
             {{ dropzone.create(action='/upload_file') }}
 
